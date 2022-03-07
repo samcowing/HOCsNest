@@ -1,7 +1,5 @@
 # HOC's Nest
 
-# HOC's Nest
-
 ### Your group members and scrum leader (if applicable) 
 * David Oliveros (backend lead)
 * Josh Hovis (frontend lead)
