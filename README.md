@@ -16,7 +16,7 @@
 - Group model
   - Has Users
   - Has comments
-- User model (handled by Django)
+- User model
   - Has comments
 - Comment model
   - Associated with a user (can't have a comment without a user)
