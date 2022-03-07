@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "node-sass": "^7.0.1",
+    "six": "^0.0.12"
+  }
+}
