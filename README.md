@@ -23,5 +23,5 @@
 (Josh)
 
 ### Stretch Goals
-> Direct chats
-> Multiple games
+* Direct chats
+* Multiple games
