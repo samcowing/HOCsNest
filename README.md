@@ -22,4 +22,6 @@
 ### Wireframes
 (Josh)
 
-### Anything else your squad lead should know
+### Stretch Goals
+> Direct chats
+> Multiple games
