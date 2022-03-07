@@ -14,7 +14,7 @@
 (David)
 
 ### React component hierarchy (if applicable)
-(Josh)
+![Insert Image here](https://imgur.com/Vpvyolx)
 
 ### User stories
 (Sam)
