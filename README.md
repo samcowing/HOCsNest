@@ -20,7 +20,8 @@
 (Sam)
 
 ### Wireframes
-(Josh)
+![Wireframe](https://i.imgur.com/8w93U36.jpg)
+
 
 ### Stretch Goals
 * Direct chats
