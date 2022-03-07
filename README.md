@@ -8,10 +8,14 @@
 (Sam initial version)
 
 ### Your tech stack (frontend, backend, database)
-(David)
+> React
+> Django
+> PostgreSQL
 
 ### List of backend models and their properties
-(David)
+> Group model
+> User model (handled by Django)
+> Comment model
 
 ### React component hierarchy (if applicable)
 ![React Hierarchy Img](https://i.imgur.com/Vpvyolx.jpeg)
