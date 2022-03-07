@@ -14,8 +14,12 @@
 
 ### List of backend models and their properties
 - Group model
+  - Has Users
+  - Has comments
 - User model (handled by Django)
+  - Has comments
 - Comment model
+  - Associated with a user (can't have a comment without a user)
 
 ### React component hierarchy (if applicable)
 ![React Hierarchy Img](https://i.imgur.com/Vpvyolx.jpeg)
