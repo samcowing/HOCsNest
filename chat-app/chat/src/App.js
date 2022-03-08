@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import axios from 'axios'
 
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -61,18 +62,22 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.client.onopen = () => {
+    this.client.onopen = async () => {
       console.log('WebSocket Client Connected');
+      let res = await axios.get("http://localhost:8000/api/messages")
+      this.setState({ messages: res.data })
+      console.log(res.data)
     };
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
       console.log('got reply! ', dataFromServer);
       if (dataFromServer) {
+        console.log(this.state.messages)
         this.setState((state) =>
         ({
           messages: [...state.messages,
           {
-            msg: dataFromServer.message,
+            message: dataFromServer.message,
             username: dataFromServer.username,
           }]
         })
@@ -98,7 +103,7 @@ class App extends Component {
                       </Avatar>
                     }
                     title={message.username}
-                    subheader={message.msg}
+                    subheader={message.message}
                   />
                 </Card>
               </>)}
