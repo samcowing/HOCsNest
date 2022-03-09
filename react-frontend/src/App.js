@@ -1,55 +1,51 @@
 import './App.scss';
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+import axios from 'axios'
 
-function App(props) {
+function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [messages, setMessages] = useState([])
-  // const [message, setMessage] = useState('')
   const [inputValue, setInputValue] = useState('')
   const [username, setUsername] = useState('')
   const [room, setRoom] = useState(1)
-
-  const client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
+  const [client, setClient] = useState(new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/'))
 
   const logIn = (e) => {
     if (isLoggedIn === false) {
       e.preventDefault()
       setIsLoggedIn(true)
-      console.log(username)
-      console.log(room)
     }
   }
-
-  const onClick = (e) => {
+  
+  function onClick(e) {
+    e.preventDefault()
     client.send(JSON.stringify({
       type: 'message',
-      message: e.target.value,
-      username: e.target.name
-      // setUsername(e.target.name)
+      message: inputValue,
+      username: username
     }))
-    // e.target.value = ''
-    console.log(e.target)
-    setInputValue('')
     e.target.value = inputValue
-    e.preventDefault()
-    console.log(username)
-    console.log(room)
+    setInputValue('')
   }
 
-  useLayoutEffect(() => {
-    client.onopen = () => {
+  useEffect(() => {
+    client.onopen = async () => {
       console.log('WebSocket Client Connected')
+      let res = await axios.get("http://localhost:8000/api/messages")
+      setMessages(res.data)
     }
+  }, [])
+
+  useEffect(() => {
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data)
       console.log('got reply!', dataFromServer)
       if (dataFromServer) {
-        setMessages([...messages, { msg: dataFromServer.message, username: dataFromServer.username }])
-        console.log(messages)
+        setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])
       }
     }
-  }, [])
+  }, [messages.length])
 
   return (
     <div className="App">
@@ -61,15 +57,14 @@ function App(props) {
             <div className='App-chatroom-input'>
               {messages.map(message => <>
                 <p>User: {message.username}</p>
-                <p>Message: {message.msg}</p>
+                <p>Message: {message.message}</p>
               </>)}
             </div>
           </div>
-
           <form noValidate onSubmit={onClick}>
             <input id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
               setInputValue(e.target.value)
-              e.target.value = inputValue
+  
             }} />
             <button type='submit'>Send Chat</button>
           </form>
@@ -80,11 +75,9 @@ function App(props) {
           <form noValidate onSubmit={logIn}>
             <input id='room-name' placeholder='Chatroom Name' name='chatroom-name' value={room} onChange={e => {
               setRoom(e.target.value)
-              // e.target.value = room
             }} />
             <input id='username' placeholder='Username' name='username' value={username} onChange={e => {
               setUsername(e.target.value)
-              // e.target.value = username
             }} />
             <button type='submit'>Start Chatting</button>
           </form>
