@@ -5,6 +5,5 @@ from django.contrib.auth.models import User
 
 class Message(models.Model):
     #TODO - implement User sessions and auth
-    #username = models.ForeignKey(User, related_name='messages', on_delete=models.CASCADE)
-    username = models.CharField(max_length=50)
     message = models.TextField()
+    user = models.ForeignKey(User, related_name="messages", on_delete=models.CASCADE)

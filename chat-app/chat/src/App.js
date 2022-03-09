@@ -64,9 +64,15 @@ class App extends Component {
   componentDidMount() {
     this.client.onopen = async () => {
       console.log('WebSocket Client Connected');
-      let res = await axios.get("http://localhost:8000/api/messages")
-      this.setState({ messages: res.data })
-      console.log(res.data)
+      const res = await axios.get("http://localhost:8000/api/messages")
+      const prevMessages = res.data.map((element) => {
+          return {
+              message: element.message,
+              username: element.user.username
+          }
+      })
+      this.setState({ messages: prevMessages })
+      console.log(prevMessages)
     };
     this.client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data);
