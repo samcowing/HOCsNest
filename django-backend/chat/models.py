@@ -11,4 +11,3 @@ class Message(models.Model):
     #TODO - implement User sessions and auth
     message = models.TextField()
     user = models.ForeignKey(User, related_name="messages", on_delete=models.CASCADE)
-    room = models.ForeignKey(Room, on_delete=models.CASCADE)
