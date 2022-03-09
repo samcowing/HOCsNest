@@ -17,7 +17,7 @@ function App() {
       setIsLoggedIn(true)
     }
   }
-  
+
   function onClick(e) {
     e.preventDefault()
     client.send(JSON.stringify({
@@ -64,7 +64,7 @@ function App() {
           <form noValidate onSubmit={onClick}>
             <input id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
               setInputValue(e.target.value)
-  
+
             }} />
             <button type='submit'>Send Chat</button>
           </form>
