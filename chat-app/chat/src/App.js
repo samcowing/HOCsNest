@@ -49,7 +49,7 @@ class App extends Component {
     room: '1',
   }
 
-  client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + this.state.room + '/')
+    client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + this.state.room + '/')
 
   onButtonClicked = (e) => {
     this.client.send(JSON.stringify({

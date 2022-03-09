@@ -4,9 +4,16 @@ from channels.generic.websocket import WebsocketConsumer
 from django.contrib.auth.models import User
 
 from .models import Message
+from .models import Room
 
 
 class ChatConsumer(WebsocketConsumer):
+
+    def create_room(self, name):
+        new_room = Room.objects.create(name=name)
+        new_room.save()
+        return new_room
+
     def create_chat(self, user, message):
         new_msg = Message.objects.create(user=user, message=message)
         new_msg.save()
@@ -15,6 +22,7 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
+        self.create_room(self.room_name)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
