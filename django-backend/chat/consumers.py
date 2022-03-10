@@ -1,10 +1,13 @@
 import json
 from asgiref.sync import sync_to_async, async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from .models import Message
 from .models import Room
+
+User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -79,7 +82,7 @@ class ChatConsumer(WebsocketConsumer):
         # Save message to PostgreSQL database
         # For testing purposes
         # TODO - Use logged in user
-        current_user = User.objects.raw('SELECT * from auth_user')[1]
+        current_user = User.objects.raw('SELECT * from users_newuser')[1]
         new_msg = self.create_chat(self.current_room, current_user, message)
 
         # Send message to WebSocket

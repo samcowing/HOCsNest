@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
+import axios from 'axios';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import axios from 'axios'
 
 function TempChat() {
 
