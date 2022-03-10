@@ -2,22 +2,21 @@ import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import axios from 'axios'
 
-let room = 1
-const client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
-
 function TempChat() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [username, setUsername] = useState('')
-  const [room, setRoom] = useState(1)
-  // const [client, setClient] = useState(new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/'))
+  const [room, setRoom] = useState(null)
+  const [client, setClient] =  useState({})
 
-  const logIn = (e) => {
+  const logIn = async (e) => {
     if (isLoggedIn === false) {
       e.preventDefault()
       setIsLoggedIn(true)
+      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
+      setClient(new_client)
     }
   }
 
@@ -35,10 +34,17 @@ function TempChat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
-      let res = await axios.get("http://localhost:8000/api/messages")
-      setMessages(res.data)
+      const res = await axios.get("http://localhost:8000/api/messages")
+      const prevMessages = res.data.map((element) => {
+          return {
+              message: element.message,
+              username: element.user.username
+          }
+      })
+      setMessages(prevMessages)
+      console.log(prevMessages)
     }
-  }, [])
+  }, [client])
 
   useEffect(() => {
     client.onmessage = (message) => {
@@ -49,6 +55,7 @@ function TempChat() {
       }
     }
   }, [messages.length])
+
 
   return (
     <div className="App">
