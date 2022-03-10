@@ -1,15 +1,24 @@
+<<<<<<< HEAD:react-frontend/src/components/Chat/Chat.jsx
+import './Chat.scss'
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
+import { w3cwebsocket as W3CWebSocket } from "websocket";
+import axios from 'axios'
+import Avatar from '@mui/material/Avatar'
+import { indigo, lightBlue } from '@mui/material/colors'
+=======
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import axios from 'axios';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
+>>>>>>> main:react-frontend/src/components/TempChat.jsx
 
-function TempChat() {
+function Chat() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [username, setUsername] = useState('')
   const [room, setRoom] = useState(null)
-  const [client, setClient] =  useState({})
+  const [client, setClient] = useState({})
 
   const logIn = async (e) => {
     if (isLoggedIn === false) {
@@ -36,10 +45,10 @@ function TempChat() {
       console.log('WebSocket Client Connected')
       const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
       const prevMessages = res.data.map((element) => {
-          return {
-              message: element.message,
-              username: element.user.username
-          }
+        return {
+          message: element.message,
+          username: element.user.username
+        }
       })
       setMessages(prevMessages)
       console.log(prevMessages)
@@ -58,27 +67,33 @@ function TempChat() {
 
 
   return (
-    <div className="App">
-      <h1>Home</h1>
+    <div className="chat">
+      <h1 style={{ marginBottom: '30px', borderBottom: '1px solid black' }}>Home</h1>
       {isLoggedIn ?
-        <div className='App-chatroom'>
-          <div className='App-chatroom-user'>
-            <p>Room Name: {room}</p>
-            <div className='App-chatroom-input'>
-              {messages.map(message => <>
-                <p>User: {message.username}</p>
-                <p>Message: {message.message}</p>
-              </>)}
-            </div>
+        // CHAT ROOM
+        <div className='room'>
+          {/* <p>Room Name: {room}</p> */}
+          <div className='room-map'>
+            {messages.map(message =>
+              <div className='room-map-wrapper'>
+                <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={username} sx={{ bgcolor: lightBlue[400] }} className='room-map-avatar' />
+                <div className='room-map-userinput'>
+                  <h5 className='room-map-user'>{message.username}</h5>
+                  <p className='room-map-message'>{message.message}</p>
+                </div>
+              </div>
+            )}
           </div>
-          <form noValidate onSubmit={onClick}>
-            <input id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
+          <form className='room-form' noValidate onSubmit={onClick}>
+            <input className='room-form-input' id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
               setInputValue(e.target.value)
 
             }} />
-            <button type='submit'>Send Chat</button>
+            <button className='btn room-form-btn' type='submit'>Send Chat</button>
           </form>
         </div>
+
+        // TEMP CHAT-LOGIN SCREEN
         :
         <div className='App-login'>
           <h1>HOCs Nest</h1>
@@ -97,4 +112,4 @@ function TempChat() {
   );
 }
 
-export default TempChat;
+export default Chat;
