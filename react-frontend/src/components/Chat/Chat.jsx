@@ -1,15 +1,9 @@
-<<<<<<< HEAD:react-frontend/src/components/Chat/Chat.jsx
 import './Chat.scss'
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import axios from 'axios'
 import Avatar from '@mui/material/Avatar'
 import { indigo, lightBlue } from '@mui/material/colors'
-=======
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import axios from 'axios';
-import { w3cwebsocket as W3CWebSocket } from "websocket";
->>>>>>> main:react-frontend/src/components/TempChat.jsx
 
 function Chat() {
 
