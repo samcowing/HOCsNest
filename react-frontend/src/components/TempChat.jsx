@@ -54,7 +54,7 @@ function TempChat() {
         setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])
       }
     }
-  }, [messages.length])
+  }, [messages])
 
 
   return (

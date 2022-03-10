@@ -28,9 +28,6 @@ class MessageView(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
 
     def get_queryset(self):
-        print(f"\n\n{ self.request }")
-        print(self.request.query_params)
-        print("\n")
         r = self.request.query_params['room']
 
         r_id = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [r])[0].id

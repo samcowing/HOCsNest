@@ -9,6 +9,8 @@ from .models import Room
 
 class ChatConsumer(WebsocketConsumer):
 
+    rooms = ['home', 'lounge', 'games']
+
     def create_room(self, name):
         new_room = Room.objects.create(name=name)
         new_room.save()
@@ -22,11 +24,21 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
+
+        # Create rooms in backend if they do not already exist
+        all_room_obj = Room.objects.raw('SELECT * from chat_room')
+
+        for room in self.rooms:
+            if room not in [r.name for r in all_room_obj]:
+                self.create_room(room)
+
         room_obj = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])
+
         if len(room_obj) > 0:
             self.current_room = room_obj[0]
         else:
-            self.current_room = self.create_room(self.room_name)
+            print('ERROR: Room does not exist')
+            return -1
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
