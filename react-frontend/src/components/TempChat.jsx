@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
+import axios from 'axios';
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import axios from 'axios'
 
 let room = 1
 const client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
