@@ -4,8 +4,9 @@ from channels.generic.websocket import WebsocketConsumer
 from django.conf import settings
 from django.contrib.auth import get_user_model
 
-from .models import Message
+from .models import Lounge
 from .models import Room
+from .models import Message
 
 User = get_user_model()
 
@@ -13,9 +14,15 @@ User = get_user_model()
 class ChatConsumer(WebsocketConsumer):
 
     rooms = ['home', 'lounge', 'games']
+    lounges = ['public']
 
-    def create_room(self, name):
-        new_room = Room.objects.create(name=name)
+    def create_lounge(self, name):
+        new_lounge = Lounge.objects.create(name=name)
+        new_lounge.save()
+        return new_lounge
+
+    def create_room(self, name, lounge):
+        new_room = Room.objects.create(name=name, lounge=lounge)
         new_room.save()
         return new_room
 
@@ -29,12 +36,21 @@ class ChatConsumer(WebsocketConsumer):
         self.room_group_name = 'chat_%s' % self.room_name
         self.user = self.scope['user']
 
-        # Create rooms in backend if they do not already exist
-        all_room_obj = Room.objects.raw('SELECT * from chat_room')
+        all_lounge_arr = Lounge.objects.raw('SELECT * from chat_lounge')
+        all_room_arr = Room.objects.raw('SELECT * from chat_room')
 
+        # Create default lounges if they do not exist
+        for lounge in self.lounges:
+            if lounge not in [l.name for l in all_lounge_arr]:
+                self.create_lounge(lounge)
+
+        lounge_obj = Lounge.objects.raw('SELECT * FROM chat_lounge WHERE name = %s', [self.lounges[0]])
+        self.current_lounge = lounge_obj[0]
+
+        # Create default rooms if they do not exist
         for room in self.rooms:
-            if room not in [r.name for r in all_room_obj]:
-                self.create_room(room)
+            if room not in [r.name for r in all_room_arr]:
+                self.create_room(room, self.current_lounge)
 
         room_obj = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])
 
