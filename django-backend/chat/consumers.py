@@ -22,10 +22,11 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        print(self.room_name)
-        self.create_room(self.room_name)
-        self.current_room = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])[0]
-        print(self.current_room)
+        room_obj = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])
+        if len(room_obj) > 0:
+            self.current_room = room_obj[0]
+        else:
+            self.current_room = self.create_room(self.room_name)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(

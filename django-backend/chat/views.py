@@ -2,6 +2,7 @@ from django.shortcuts import render
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 
@@ -25,7 +26,19 @@ def room(request, room_name):
 
 class MessageView(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
-    queryset = Message.objects.all()
+
+    def get_queryset(self):
+        print(f"\n\n{ self.request }")
+        print(self.request.query_params)
+        print("\n")
+        r = self.request.query_params['room']
+
+        r_id = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [r])[0].id
+        return Message.objects.filter(room_id=r_id)
+
+    @classmethod
+    def get_extra_actions(cls):
+        return []
 
 
 
