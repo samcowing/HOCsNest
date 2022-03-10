@@ -11,6 +11,7 @@ python-dotenv = "*"
 django-cors-headers = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
+djangorestframework-simplejwt = "*"
 
 [dev-packages]
 
