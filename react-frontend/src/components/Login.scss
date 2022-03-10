@@ -1,4 +1,4 @@
-.login {
+.user-container {
     background: linear-gradient(to right, #141e30, #243b55);
     width: 100vw;
     height: 100vh;
@@ -6,119 +6,291 @@
     align-items: center;
 }
 
-.login-form {
-    width: 50vw;
-    display: grid;
-    background: black;
-    padding: 50px !important;
-    font-size: 1vw;
-    color: white;
-    border-radius: 0 10px 10px 0;
-
-    &-title {
-        margin-bottom: 20px;
+// LOGIN STYLING 
+.login {
+    &-container {
+        width: 50% !important;
+        margin: 0 auto;
     }
 
-    &-forgot {
+    &-header {
+        background-color: #10a8df;
+        color: black;
+        padding: 40px !important;
+        padding-bottom: 0 !important;
+        border-radius: 10px 0 0 10px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        &-logo {
+            width: 320px;
+        }
+    }
+
+    &-form {
+        width: 50vw;
+        display: grid;
+        background: black;
+        padding: 50px !important;
+        font-size: 1vw;
         color: white;
-        font-size: 16px;
+        border-radius: 0 10px 10px 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        &-title {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.1s ease-in-out;
+
+            padding: {
+                top: 5px;
+                bottom: 5px;
+                left: 10px;
+            }
+
+            &:focus {
+                border: 2px solid #10a8df;
+                transition: all 0.1s ease-in-out;
+            }
+        }
+
+        &-forgot {
+            justify-content: flex-end;
+            text-align: right;
+            width: 85%;
+
+            a {
+                color: white;
+                font-size: 14px;
+            }
+        }
+
+        &-btn {
+            font-weight: 500;
+            text-align: center;
+            font-size: 18px !important;
+            background-color: #10a8df !important;
+            font-weight: 500 !important;
+            letter-spacing: .3px;
+            height: 50px;
+            width: 70%;
+            font-size: medium;
+            color: white;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: #fff !important;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        &-create {
+            color: white;
+            font-size: 16px;
+            letter-spacing: .4px;
+            width: 100%;
+            text-align: center;
+
+            a {
+                color: white;
+            }
+
+            span {
+                color: #10a8df;
+            }
+        }
     }
-}
-
-input {
-    margin-bottom: 15px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    transition: all 0.1s ease-in-out;
-
-    padding: {
-        top: 5px;
-        bottom: 5px;
-        left: 10px;
-    }
-
-    &:focus {
-        border: 2px solid #10a8df;
-        transition: all 0.1s ease-in-out;
-    }
-}
-
-.login-container {
-    width: 50% !important;
-    margin: 0 auto;
-}
-
-p {
-    margin-bottom: 0;
-}
-
-.login-header-logo {
-    width: 320px;
-}
-
-.btn {
-    font-weight: 500;
-    text-align: center;
-    padding: 0 110px !important;
-    font-size: 18px !important;
-    background-color: #10a8df !important;
-    font-weight: 500 !important;
-    letter-spacing: .3px;
-    height: 50px;
-    width: 100%;
-    font-size: medium;
-    color: white;
-    border-radius: 8px;
-    transition: all 0.3s ease-in-out;
-
-    &:hover {
-        background-color: #fff !important;
-        transition: all 0.3s ease-in-out;
-    }
-}
-
-.login-header {
-    background-color: #10a8df;
-    color: black;
-    padding: 40px !important;
-    padding-bottom: 0 !important;
-    border-radius: 10px 0 0 10px;
 }
 
 @media only screen and (max-width: 425px) {
-    form {
-        width: 66vw;
+    .login {
+        &-container {
+            width: 80% !important;
+            margin: 0 auto;
+        }
+
+        &-header {
+            border-radius: 10px 10px 0 0;
+
+            &-logo {
+                width: 160px;
+                height: 140px;
+            }
+        }
+
+        &-form {
+            padding: 25px !important;
+            font-size: .8rem;
+            border-radius: 0 0 10px 10px;
+
+            form {
+                width: 66vw;
+                margin: 0 auto;
+            }
+
+            &-forgot {
+                width: 100%;
+            }
+
+            &-btn {
+                font-size: 14px !important;
+                width: 100%;
+            }
+
+            &-create {
+                font-size: 14px;
+                margin-top: 20px;
+            }
+
+        }
+    }
+}
+
+
+// SIGNUP STYLING
+.signup {
+    &-container {
+        width: 50% !important;
         margin: 0 auto;
     }
 
-    .login-header {
-        border-radius: 10px 10px 0 0;
-    }
-
-    .login-header-logo {
-        width: 160px;
-        height: 140px;
-    }
-
-    .login-form {
-        padding: 25px !important;
-        font-size: .8rem;
-        border-radius: 0 0 10px 10px;
-    }
-
-    .left-background {
-        padding: 20px !important;
+    &-header {
+        background-color: black;
+        color: white;
+        padding: 40px !important;
         padding-bottom: 0 !important;
+        border-radius: 10px 0 0 10px;
+
+        p {
+            margin-bottom: 0;
+        }
+
+        &-logo {
+            width: 320px;
+        }
     }
 
-    .login-container {
-        width: 80% !important;
-        margin: 0 auto;
-    }
+    &-form {
+        width: 50vw;
+        display: grid;
+        background: #10a8df;
+        padding: 50px !important;
+        font-size: 1vw;
+        color: black;
+        border-radius: 0 10px 10px 0;
+        display: flex;
+        flex-wrap: wrap;
 
-    .btn {
-        font-size: 14px !important;
+        &-title {
+            margin-bottom: 20px;
+        }
+
+        input {
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.1s ease-in-out;
+
+            padding: {
+                top: 5px;
+                bottom: 5px;
+                left: 10px;
+            }
+
+            &:focus {
+                border: 2px solid black;
+                transition: all 0.1s ease-in-out;
+            }
+        }
+
+        &-btn {
+            font-weight: 500;
+            text-align: center;
+            font-size: 18px !important;
+            background-color: white !important;
+            font-weight: 500 !important;
+            letter-spacing: .3px;
+            height: 50px;
+            width: 70%;
+            font-size: medium;
+            color: black;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                background-color: black !important;
+                color: white;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        &-login {
+            color: white;
+            font-size: 16px;
+            letter-spacing: .4px;
+            width: 100%;
+            text-align: center;
+
+            a {
+                color: black;
+            }
+
+            span {
+                color: white;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .signup {
+        &-container {
+            width: 80% !important;
+            margin: 0 auto;
+        }
+
+        &-header {
+            border-radius: 10px 10px 0 0;
+
+            &-logo {
+                width: 160px;
+                height: 140px;
+            }
+        }
+
+        &-form {
+            padding: 25px !important;
+            font-size: .8rem;
+            border-radius: 0 0 10px 10px;
+
+            form {
+                width: 66vw;
+                margin: 0 auto;
+            }
+
+            &-btn {
+                font-size: 14px !important;
+                width: 100%;
+            }
+
+            &-login {
+                font-size: 14px;
+                margin-top: 20px;
+            }
+
+        }
     }
 }

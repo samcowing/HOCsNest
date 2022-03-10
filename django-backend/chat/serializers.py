@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from .models import Message
+from django.contrib.auth import get_user_model
 
-
+User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
 
-        user = UserModel.objects.create_user(
+        user = User.objects.create_user(
                 username=validated_data['username'],
                 password=validated_data['password'],
                 )

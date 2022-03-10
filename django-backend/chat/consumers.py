@@ -1,10 +1,13 @@
 import json
 from asgiref.sync import sync_to_async, async_to_sync
 from channels.generic.websocket import WebsocketConsumer
-from django.contrib.auth.models import User
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from .models import Message
 from .models import Room
+
+User = get_user_model()
 
 
 class ChatConsumer(WebsocketConsumer):
@@ -14,15 +17,18 @@ class ChatConsumer(WebsocketConsumer):
         new_room.save()
         return new_room
 
-    def create_chat(self, user, message):
-        new_msg = Message.objects.create(user=user, message=message)
+    def create_chat(self, room, user, message):
+        new_msg = Message.objects.create(room=room, user=user, message=message)
         new_msg.save()
         return new_msg
 
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
+        print(self.room_name)
         self.create_room(self.room_name)
+        self.current_room = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])[0]
+        print(self.current_room)
 
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -63,8 +69,8 @@ class ChatConsumer(WebsocketConsumer):
         # Save message to PostgreSQL database
         # For testing purposes
         # TODO - Use logged in user
-        current_user = User.objects.raw('SELECT * from auth_user')[1]
-        new_msg = self.create_chat(current_user, message)
+        current_user = User.objects.raw('SELECT * from users_newuser')[1]
+        new_msg = self.create_chat(self.current_room, current_user, message)
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
