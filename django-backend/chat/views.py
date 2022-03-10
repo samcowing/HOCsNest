@@ -49,7 +49,7 @@ class HelloView(APIView):
 
 
 class LobbyView(APIView):
-    
+
     def get(self, request):
         content = { 'Current room': request.query_params['room'] }
         return Response('lobby')

@@ -27,6 +27,7 @@ class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
+        self.user = self.scope['user']
 
         # Create rooms in backend if they do not already exist
         all_room_obj = Room.objects.raw('SELECT * from chat_room')
@@ -82,8 +83,7 @@ class ChatConsumer(WebsocketConsumer):
         # Save message to PostgreSQL database
         # For testing purposes
         # TODO - Use logged in user
-        current_user = User.objects.raw('SELECT * from users_newuser')[1]
-        new_msg = self.create_chat(self.current_room, current_user, message)
+        new_msg = self.create_chat(self.current_room, self.user, message)
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
