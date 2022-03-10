@@ -16,6 +16,7 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "react-uuid": "^1.0.2",
+    "reactdom": "^2.0.0",
     "redis": "^4.0.4",
     "sass": "^1.49.9",
     "styled-components": "^5.3.3",
