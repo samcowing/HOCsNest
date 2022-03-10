@@ -34,7 +34,7 @@ function TempChat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
-      const res = await axios.get("http://localhost:8000/api/messages")
+      const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
       const prevMessages = res.data.map((element) => {
           return {
               message: element.message,
@@ -54,7 +54,7 @@ function TempChat() {
         setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])
       }
     }
-  }, [messages.length])
+  }, [messages])
 
 
   return (
