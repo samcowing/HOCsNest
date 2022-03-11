@@ -2,7 +2,7 @@ import './Chat.scss'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Avatar from '@mui/material/Avatar'
 import { lightBlue } from '@mui/material/colors'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 function Chat() {
@@ -68,7 +68,7 @@ function Chat() {
       {isLoggedIn ?
         // CHAT ROOM
         <div className='chat'>
-          <p style={{ color: 'white' }}>Room Name: {room}</p>
+          <p style={{ color: 'white', textTransform: 'capitalize' }}>Room Name: {room}</p>
           <div className='chat-map'>
             {messages.map(message =>
               <div className='chat-map-wrapper'>

@@ -1,9 +1,15 @@
-body {
-    background-color: rgba(0, 0, 0, 0.95);
-}
-
+// ACTUAL CHATROOM STYLING
 .wrapper {
+    background-color: rgba(0, 0, 0, 0.95);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
     .chat {
+        flex-grow: 1;
+        overflow-y: scroll;
+
         &-map {
             &-wrapper {
                 display: flex;
@@ -93,38 +99,55 @@ body {
 }
 
 @media only screen and (min-width: 996px) {
-    .chat {
-        width: 60%;
-        margin: 0 auto;
+    .wrapper {
+        padding: 10px 0;
 
-        &-map {
-            &-wrapper {
-                margin-bottom: 25px !important;
-            }
-
-            &-userinput {
-                width: 95% !important;
-                margin-left: 10px !important;
-            }
-        }
-
-        &-form {
-            width: 70% !important;
-            background-color: transparent !important;
-            display: flex;
-            justify-content: space-evenly !important;
+        .chat {
+            width: 60%;
             margin: 0 auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.45) rgba(81, 82, 85, 0.45);
 
-            &-input {
-                border-radius: 10px !important;
-                width: 600px;
+            &::-webkit-scrollbar {
+                border-radius: 10px;
+                width: 7px;
+                background-color: rgba(81, 82, 85, 0.45);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.45);
+                border-radius: 10px;
+            }
+
+            &-map {
+                &-wrapper {
+                    margin-bottom: 25px !important;
+                }
+
+                &-userinput {
+                    width: 95% !important;
+                    margin-left: 10px !important;
+                }
+            }
+
+            &-form {
+                width: 70% !important;
+                background-color: transparent !important;
+                display: flex;
+                justify-content: space-evenly !important;
+                margin: 0 auto;
+
+                &-input {
+                    border-radius: 10px !important;
+                    width: 600px;
+                }
             }
         }
     }
 }
 
 
-
+// CHANNEL ROOM SELECT STYLE
 .wrapper {
     .room {
         color: white;
