@@ -6,11 +6,12 @@ import axios from 'axios';
 import axiosConnection from './authAPI';
 import { useNavigate } from 'react-router-dom'
 
-const Login = () => {
+const Signup = () => {
     const navigate = useNavigate()
 
     const initialFormData = Object.freeze({
 		email: '',
+		username: '',
 		password: '',
 	});
 
@@ -23,38 +24,37 @@ const Login = () => {
 		});
 	};
 
-	const logIn = (e) => {
+	const handleSignup = (e) => {
 		e.preventDefault();
 		console.log(formData);
 
 		axiosConnection
-			.post(`token/`, {
+			.post(`user/register/`, {
 				email: formData.email,
+				username: formData.username,
 				password: formData.password,
 			})
 			.then((res) => {
-				localStorage.setItem('access_token', res.data.access);
-				localStorage.setItem('refresh_token', res.data.refresh);
-				axiosConnection.defaults.headers['Authorization'] =
-					'JWT ' + localStorage.getItem('access_token');
-				navigate('/');
+				navigate('/login');
+				console.log(res);
+				console.log(res.data);
 			});
-	};
-
+	}
 
     return (
         <div className="user-container">
-                <div className='login'>
-                    <div className='login-container'>
+            {/* LOGIN */}
+                <div className='signup'>
+                    <div className='signup-container'>
                         <div className='row'>
-                            <div className='col login-header'>
-                                <h2 className='login-header-title'>HOCs Nest</h2>
-                                <p className='login-header-subtitle'>A simple, real-time chat application</p>
-                                <img className='login-header-logo' src='https://i.imgur.com/W7mI5kZ.png' alt='HOCs Nest Logo' />
+                            <div className='col signup-header'>
+                                <h2 className='signup-header-title'>HOCs Nest</h2>
+                                <p className='signup-header-subtitle'>A simple, real-time chat application</p>
+                                <img className='signup-header-logo' src='https://i.imgur.com/Sycy4y3.png' alt='HOCs Nest Logo' />
                             </div>
-                            <div className='col login-form'>
-                                <form onSubmit={logIn} noValidate>
-                                    <h3 className='login-form-title'>Login</h3>
+                            <div className='col signup-form'>
+                                <form onSubmit={handleSignup} noValidate>
+                                    <h3 className='signup-form-title'>Create Account</h3>
                                     <div className='form-group'>
                                         <input
                                             type="text"
@@ -63,26 +63,32 @@ const Login = () => {
                                             onChange={handleChange}
                                         />
                                         <input
+                                            type="text"
+                                            placeholder="Username"
+                                            name="username"
+                                            onChange={handleChange}
+                                        />
+                                        <input
                                             type="password"
                                             placeholder="Password"
                                             name="password"
                                             onChange={handleChange}
                                         />
-                                        <div className='login-form-forgot'>
-                                            <Link to='/' className=''>Forgot password?</Link>
+                                        <div className='signup-form-forgot'>
                                         </div>
                                     </div>
-                                    <button type='submit' className='btn login-form-btn'>Submit</button>
+                                    <button type='submit' className='btn signup-form-btn'>Submit</button>
                                 </form>
-                                <div className='login-form-create'>
-                                    <Link to='/signup' className=''>Don't have an account? <span>Sign up</span></Link>
+                                <div className='signup-form-login'>
+                                    <Link to='/login' className=''>Already have an account? <span>Login</span></Link>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
         </div>
     )
 }
 
-export default Login
+export default Signup
