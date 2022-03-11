@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 from dotenv import load_dotenv
+from datetime import timedelta
 
 load_dotenv()
 
@@ -146,17 +147,36 @@ CHANNEL_LAYERS = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_CREDENTIALS = True
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 CORS_ORIGIN_WHITELIST = [
         "https://localhost:3000",
-        ]
+    ]
+
 
 REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': [
-            'rest_framework_simplejwt.authentication.JWTAuthentication',
-            ]
-        }
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 AUTH_USER_MODEL = "users.NewUser"
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'VERIFYING_KEY': None,
+    'AUTH_HEADER_TYPES': ('JWT',),
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+}
