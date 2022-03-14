@@ -4,6 +4,7 @@ import { TextField, Avatar } from '@mui/material/';
 import { lightBlue } from '@mui/material/colors'
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import classnames from 'classnames';
 
 function Chat() {
 
@@ -13,8 +14,13 @@ function Chat() {
   const [username, setUsername] = useState('')
   const [room, setRoom] = useState('')
   const [client, setClient] = useState({})
+  const [activeRoom, setActiveRoom] = useState(false)
 
-  const roomsArray = ['home', 'lounge', 'games']
+  const [roomsArr, setRoomsArr] = useState([
+    { name: 'home' },
+    { name: 'lounge' },
+    { name: 'games' },
+  ])
 
   const messagesEndRef = useRef(null)
 
@@ -22,6 +28,12 @@ function Chat() {
     e.preventDefault()
     const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
     setClient(new_client)
+
+    setActiveRoom(room)
+    if (activeRoom === room) {
+      setActiveRoom(true)
+    }
+
     setInputValue('')
   }
 
@@ -89,20 +101,20 @@ function Chat() {
         <h4 className='room-subtitle'>Rooms Available To Join:</h4>
 
         <div className='room-wrapper'>
-          {roomsArray.map(rooms =>
 
+          {roomsArr.map(rooms =>
             <form className='room-form' noValidate onSubmit={roomSelect}>
-              <div className='room-form-wrapper'>
-                <button type="submit" className='btn room-form-btn' onClick={() => setRoom(rooms)}>
+              <div className='room-form-wrapper' key={rooms.name}>
+                <button type="submit" className={'btn room-form-btn' + (activeRoom === rooms.name ? ' active-btn' : '')} onClick={() => setRoom(rooms.name)}>
                   <input type="image" id="room-name" alt="room-icon" className='room-form-img' src="https://i.imgur.com/W7mI5kZ.png" />
-                  <div className='room-form-title'>
-                    <h5 className='room-form-title-text'>{rooms}</h5>
+                  <div className={'room-form-title' + (activeRoom === rooms.name ? ' active-title' : '')}>
+                    <h5 className={'room-form-title-text' + (activeRoom === rooms.name ? ' active-text' : '')}>{rooms.name}</h5>
                   </div>
                 </button>
               </div>
             </form>
-
           )}
+
         </div>
         <p style={{ color: 'white', textTransform: 'capitalize', width: '100%' }}>Current Room: {room}</p>
       </div>

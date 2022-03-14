@@ -40,6 +40,10 @@
                 }
             }
 
+            .active-btn {
+                background-color: white !important;
+            }
+
             &-img {
                 width: 100px;
                 padding-bottom: 20px;
@@ -60,7 +64,13 @@
                 &-text {
                     color: black;
                     text-transform: capitalize;
+                    margin-bottom: 0;
+                    padding: 6px 0;
                 }
+            }
+
+            .active-title {
+                background-color: #29b6f6 !important;
             }
         }
 
