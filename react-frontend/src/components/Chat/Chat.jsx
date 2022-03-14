@@ -2,7 +2,7 @@ import './Chat.scss'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { TextField, Avatar } from '@mui/material/';
 import { lightBlue } from '@mui/material/colors'
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 function Chat() {
@@ -16,12 +16,20 @@ function Chat() {
 
   const roomsArray = ['home', 'lounge', 'games']
 
+  const messagesEndRef = useRef(null)
+
   const roomSelect = async (e) => {
     e.preventDefault()
     const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
     setClient(new_client)
     setInputValue('')
   }
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'auto' })
+    }
+  })
 
   function sendMessage(e) {
     e.preventDefault()
@@ -111,6 +119,7 @@ function Chat() {
               </div>
             </div>
           )}
+          <div className='chat-map-ref' ref={messagesEndRef} />
         </div>
         <form className='chat-form' noValidate onSubmit={sendMessage}>
           <TextField
