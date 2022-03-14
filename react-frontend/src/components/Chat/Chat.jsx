@@ -16,21 +16,11 @@ function Chat() {
 
   const roomsArray = ['home', 'lounge', 'games']
 
-<<<<<<< HEAD
   const roomSelect = async (e) => {
     e.preventDefault()
     const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
     setClient(new_client)
     setInputValue('')
-=======
-  const logIn = async (e) => {
-    if (isLoggedIn === false) {
-      e.preventDefault()
-      setIsLoggedIn(true)
-      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem)
-      setClient(new_client)
-    }
->>>>>>> main
   }
 
   function sendMessage(e) {
