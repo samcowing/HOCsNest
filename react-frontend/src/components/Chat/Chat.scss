@@ -191,15 +191,18 @@
             padding-bottom: 20px;
             background-color: rgb(43, 44, 44);
             display: flex;
-            justify-content: space-between;
-            position: sticky;
+            justify-content: space-evenly;
+            position: fixed;
             bottom: 0;
+            width: 100%;
 
             &-input {
-                border-radius: 15px;
+                border-radius: 4px;
                 background-color: rgba(0, 0, 0, 0.95);
                 color: white;
                 caret-color: #29b6f6;
+                border: none;
+                outline: none;
 
                 &::placeholder {
                     color: rgba(189, 187, 187, 0.7);
@@ -208,9 +211,12 @@
             }
 
             &-btn {
-                margin-right: 10px;
                 background-color: #29b6f6;
                 font-weight: 500;
+                width: 120px;
+                height: 50px;
+                margin-top: auto;
+                margin-bottom: 5px;
 
                 &:hover,
                 &:focus {
@@ -244,6 +250,8 @@
             }
 
             &-map {
+                margin-bottom: 80px;
+
                 &-wrapper {
                     margin-bottom: 25px !important;
                 }
@@ -258,11 +266,10 @@
                 width: 70% !important;
                 background-color: transparent !important;
                 display: flex;
-                justify-content: space-evenly !important;
-                margin: 0 auto;
+                justify-content: center !important;
+                gap: 15px;
 
                 &-input {
-                    border-radius: 10px !important;
                     width: 600px;
                 }
             }

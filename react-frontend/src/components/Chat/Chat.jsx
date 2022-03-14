@@ -18,7 +18,7 @@ function Chat() {
 
   const logIn = async (e) => {
     e.preventDefault()
-    const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
+    const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
     setClient(new_client)
   }
 
@@ -64,7 +64,7 @@ function Chat() {
       <div className='room'>
 
         <h1 className='room-title'>HOCs Nest</h1>
-        <h4 className='room-subtitle'>Channels Available To Join:</h4>
+        <h4 className='room-subtitle'>Rooms Available To Join:</h4>
 
         <div className='room-wrapper'>
           {roomsArray.map(rooms =>
@@ -82,7 +82,7 @@ function Chat() {
 
           )}
         </div>
-        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%' }}>Room Name: {room}</p>
+        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%' }}>Current Room: {room}</p>
       </div>
 
       {/* // CHAT ROOM */}
