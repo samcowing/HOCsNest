@@ -16,13 +16,14 @@ function Chat() {
 
   const roomsArray = ['home', 'lounge', 'games']
 
-  const logIn = async (e) => {
+  const roomSelect = async (e) => {
     e.preventDefault()
     const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
     setClient(new_client)
+    setInputValue('')
   }
 
-  function onClick(e) {
+  function sendMessage(e) {
     e.preventDefault()
     client.send(JSON.stringify({
       type: 'message',
@@ -31,6 +32,19 @@ function Chat() {
     }))
     e.target.value = inputValue
     setInputValue('')
+  }
+
+  function onEnter(e) {
+    if (e.keyCode == 13 && !e.shiftKey) {
+      e.preventDefault()
+      client.send(JSON.stringify({
+        type: 'message',
+        message: inputValue,
+        username: username
+      }))
+      e.target.value = inputValue
+      setInputValue('')
+    }
   }
 
   useEffect(() => {
@@ -69,7 +83,7 @@ function Chat() {
         <div className='room-wrapper'>
           {roomsArray.map(rooms =>
 
-            <form className='room-form' noValidate onSubmit={logIn}>
+            <form className='room-form' noValidate onSubmit={roomSelect}>
               <div className='room-form-wrapper'>
                 <button type="submit" className='btn room-form-btn' onClick={() => setRoom(rooms)}>
                   <input type="image" id="room-name" alt="room-icon" className='room-form-img' src="https://i.imgur.com/W7mI5kZ.png" />
@@ -98,11 +112,18 @@ function Chat() {
             </div>
           )}
         </div>
-        <form className='chat-form' noValidate onSubmit={onClick}>
-          <TextField inputProps={{ style: { color: 'white' } }} InputLabelProps={{ style: { color: '#29b6f6' } }} multiline maxrows={5} label='Send a message' className='chat-form-input' id="text-input" value={inputValue} onChange={e => {
-            setInputValue(e.target.value)
-
-          }} />
+        <form className='chat-form' noValidate onSubmit={sendMessage}>
+          <TextField
+            onKeyDown={onEnter}
+            inputProps={{ style: { color: 'white' } }} InputLabelProps={{ style: { color: '#29b6f6' } }}
+            multiline maxRows={5}
+            label='Send a message'
+            className='chat-form-input'
+            id="text-input"
+            value={inputValue}
+            onChange={e => {
+              setInputValue(e.target.value)
+            }} />
           <button className='btn chat-form-btn' type='submit'>Send Chat</button>
         </form>
       </div>
