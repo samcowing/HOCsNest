@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Message
 from django.contrib.auth import get_user_model
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 User = get_user_model()
 
@@ -23,6 +24,14 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password')
 
 
+class LogInSerializer(TokenObtainPairSerializer): 
+    def get_token(cls, user):
+        token = super().get_token(user)
+        user_data = UserSerializer(user).data
+        for key, value in user_data.items():
+            if key != 'email':
+                token[key] = value
+        return token
 
 
 class MessageSerializer(serializers.ModelSerializer):

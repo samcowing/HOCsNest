@@ -20,7 +20,7 @@ function Chat() {
     if (isLoggedIn === false) {
       e.preventDefault()
       setIsLoggedIn(true)
-      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
+      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem)
       setClient(new_client)
     }
   }
