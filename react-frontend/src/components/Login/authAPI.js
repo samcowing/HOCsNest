@@ -10,7 +10,7 @@ const axiosConnection = axios.create({
             ? 'JWT ' + localStorage.getItem('access_token')
             : null,
         'Content-Type': 'application/json',
-        ccept: 'application/json',
+        accept: 'application/json',
     },
 })
 
