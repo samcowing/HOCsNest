@@ -38,43 +38,57 @@ class ChatConsumer(WebsocketConsumer):
         print("Authentication successful")
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        self.user = self.scope['user']
-        print(f'user: { self.user }')
+        print(f'user: { self.scope["user"] }')
+        print(f'Anonymous: { self.scope["user"].is_anonymous }')
+        print(f'Authenticated: { self.scope["user"].is_authenticated }')
 
-        async_to_sync(login)(self.scope, self.user)
-        database_sync_to_async(self.scope['session'].save)()
+        if self.scope['user'].is_authenticated:
+            async_to_sync(login)(self.scope, self.scope['user'])
+            database_sync_to_async(self.scope['session'].save)()
 
-        all_lounge_arr = Lounge.objects.raw('SELECT * from chat_lounge')
-        all_room_arr = Room.objects.raw('SELECT * from chat_room')
+            all_lounge_arr = Lounge.objects.raw('SELECT * from chat_lounge')
+            all_room_arr = Room.objects.raw('SELECT * from chat_room')
 
-        # Create default lounges if they do not exist
-        for lounge in self.lounges:
-            if lounge not in [l.name for l in all_lounge_arr]:
-                self.create_lounge(lounge)
+            # Create default lounges if they do not exist
+            for lounge in self.lounges:
+                if lounge not in [l.name for l in all_lounge_arr]:
+                    self.create_lounge(lounge)
 
-        lounge_obj = Lounge.objects.raw('SELECT * FROM chat_lounge WHERE name = %s', [self.lounges[0]])
-        self.current_lounge = lounge_obj[0]
+            lounge_obj = Lounge.objects.raw('SELECT * FROM chat_lounge WHERE name = %s', [self.lounges[0]])
+            self.current_lounge = lounge_obj[0]
 
-        # Create default rooms if they do not exist
-        for room in self.rooms:
-            if room not in [r.name for r in all_room_arr]:
-                self.create_room(room, self.current_lounge)
+            # Create default rooms if they do not exist
+            for room in self.rooms:
+                if room not in [r.name for r in all_room_arr]:
+                    self.create_room(room, self.current_lounge)
 
-        room_obj = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])
+            room_obj = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [self.room_name])
 
-        if len(room_obj) > 0:
-            self.current_room = room_obj[0]
+            if len(room_obj) > 0:
+                self.current_room = room_obj[0]
+            else:
+                print('ERROR: Room does not exist')
+                return -1
+
+            # Join room group
+            async_to_sync(self.channel_layer.group_add)(
+                self.room_group_name,
+                self.channel_name
+            )
+
+            self.accept()
+            async_to_sync(self.channel_layer.group_send)(
+                self.room_group_name,
+                {
+                    'type': 'accept_message',
+                    'username': self.scope['user'].username,
+                    'user_id': self.scope['user'].id,
+                    'email': self.scope['user'].email,
+                }
+            )
+            print("CONNECTION ACCEPTED")
         else:
-            print('ERROR: Room does not exist')
-            return -1
-
-        # Join room group
-        async_to_sync(self.channel_layer.group_add)(
-            self.room_group_name,
-            self.channel_name
-        )
-
-        self.accept()
+            print("\nUnauthorized\n")
 
     def disconnect(self, close_code):
         # Leave room group
@@ -89,7 +103,7 @@ class ChatConsumer(WebsocketConsumer):
         message = text_data_json['message']
         username = text_data_json['username']
 
-        async_to_sync(login)(self.scope, self.user)
+        async_to_sync(login)(self.scope, self.scope['user'])
         database_sync_to_async(self.scope['session'].save)()
 
         # Send message to room group
@@ -102,6 +116,16 @@ class ChatConsumer(WebsocketConsumer):
             }
         )
 
+
+    def accept_message(self, event):
+        self.send(text_data=json.dumps({
+            'type': 'accept',
+            'username': event['username'],
+            'user_id': event['user_id'],
+            'email': event['email'],
+        }))
+
+
     # Receive message from room group
     def chat_message(self, event):
         message = event['message']
@@ -109,11 +133,11 @@ class ChatConsumer(WebsocketConsumer):
 
         # Save message to PostgreSQL database
         # For testing purposes
-        # TODO - Use logged in user
-        new_msg = self.create_chat(self.current_room, self.user, message)
+        new_msg = self.create_chat(self.current_room, self.scope['user'], message)
 
         # Send message to WebSocket
         self.send(text_data=json.dumps({
+            'type': 'message',
             'username': new_msg.user.username,
             'message': new_msg.message,
         }))

@@ -3,14 +3,17 @@ import { w3cwebsocket as W3CWebSocket } from "websocket";
 import { TextField, Avatar } from '@mui/material/';
 import { lightBlue } from '@mui/material/colors'
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 function Chat() {
 
+  const navigate = useNavigate()
+
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
-  const [username, setUsername] = useState('')
+  const [user, setUser] = useState('')
   const [room, setRoom] = useState('')
   const [client, setClient] = useState({})
 
@@ -18,7 +21,13 @@ function Chat() {
 
   const roomSelect = async (e) => {
     e.preventDefault()
-    const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem('refresh_token'))
+    const token = window.localStorage.getItem('refresh_token')
+    const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + token)
+    if (token === null)
+    {
+      console.log("NULL TOKEN")
+      navigate('/login')
+    }
     setClient(new_client)
     setInputValue('')
   }
@@ -28,7 +37,7 @@ function Chat() {
     client.send(JSON.stringify({
       type: 'message',
       message: inputValue,
-      username: username
+      username: user.username
     }))
     e.target.value = inputValue
     setInputValue('')
@@ -40,7 +49,7 @@ function Chat() {
       client.send(JSON.stringify({
         type: 'message',
         message: inputValue,
-        username: username
+        username: user.username
       }))
       e.target.value = inputValue
       setInputValue('')
@@ -50,7 +59,6 @@ function Chat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
-      console.log()
       const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
       const prevMessages = res.data.map((element) => {
         return {
@@ -61,6 +69,20 @@ function Chat() {
       setMessages(prevMessages)
       console.log(prevMessages)
     }
+    client.onmessage = (message) => {
+      const dataFromServer = JSON.parse(message.data)
+      if (dataFromServer) {
+        if (dataFromServer.type === 'accept')
+        {
+          const tmpUser = {
+            username: dataFromServer.username,
+            user_id: dataFromServer.user_id,
+            email: dataFromServer.email,
+          }
+          setUser(tmpUser)
+        }
+      }
+    }
   }, [client])
 
   useEffect(() => {
@@ -68,7 +90,10 @@ function Chat() {
       const dataFromServer = JSON.parse(message.data)
       console.log('got reply!', dataFromServer)
       if (dataFromServer) {
-        setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])
+        if (dataFromServer.type === 'message')
+        {
+          setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])
+        }
       }
     }
   }, [messages])
@@ -104,7 +129,7 @@ function Chat() {
         <div className='chat-map'>
           {messages.map(message =>
             <div className='chat-map-wrapper'>
-              <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={username} sx={{ bgcolor: lightBlue[400] }} className='chat-map-avatar' />
+              <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={user.username} sx={{ bgcolor: lightBlue[400] }} className='chat-map-avatar' />
               <div className='chat-map-userinput'>
                 <h5 className='chat-map-user'>{message.username}</h5>
                 <p className='chat-map-message'>{message.message}</p>
