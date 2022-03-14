@@ -126,7 +126,7 @@ function Chat() {
                 <button type="submit" className={'btn room-form-btn' + (activeRoom === rooms.name ? ' active-btn' : '')} onClick={() => setRoom(rooms.name)}>
                   <input type="image" id="room-name" alt="room-icon" className='room-form-img' src="https://i.imgur.com/W7mI5kZ.png" />
                   <div className={'room-form-title' + (activeRoom === rooms.name ? ' active-title' : '')}>
-                    <h5 className={'room-form-title-text' + (activeRoom === rooms.name ? ' active-text' : '')}>{rooms.name}</h5>
+                    <h5 className='room-form-title-text'>{rooms.name}</h5>
                   </div>
                 </button>
               </div>
@@ -134,7 +134,7 @@ function Chat() {
           )}
 
         </div>
-        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%' }}>Current Room: {room}</p>
+        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%', margin: '0px' }}>Current Room: {room}</p>
       </div>
 
       {/* // CHAT ROOM */}
