@@ -11,7 +11,7 @@ function Chat() {
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [username, setUsername] = useState('')
-  const [room, setRoom] = useState('')
+  const [room, setRoom] = useState('home')
   const [client, setClient] = useState({})
 
   const roomsArray = ['home', 'lounge', 'games']
