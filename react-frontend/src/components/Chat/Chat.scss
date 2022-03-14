@@ -1,9 +1,153 @@
-body {
-    background-color: rgba(0, 0, 0, 0.95);
+// CHANNEL ROOM SELECTOR STYLE
+.wrapper {
+    .room {
+        // background-color: #29b6f6;
+        color: white;
+
+        &-title {}
+
+        &-subtitle {}
+
+        &-wrapper {
+            display: flex;
+            overflow-x: auto;
+            // flex-wrap: wrap;
+            // justify-content: center;
+        }
+
+        &-form {
+            display: flex;
+
+            &-wrapper {
+                width: 100%;
+                margin: 10px;
+            }
+
+            &-btn {
+                position: relative;
+                padding: 0 30px;
+                border-radius: 15px;
+                border: 1px solid rgba(163, 163, 163, 0.2);
+                background-color: #29b6f6;
+                transition: all 0.4s ease-in-out;
+                // -webkit-backdrop-filter: blur(5px) saturate(180%);
+                // backdrop-filter: blur(5px) saturate(180%);
+
+                &:hover,
+                &:focus {
+                    background-color: white;
+                    transition: all 0.4s ease-in-out;
+
+                    .room-form-title {
+                        background-color: #29b6f6;
+                        transition: all 0.4s ease-in-out;
+                    }
+                }
+            }
+
+            &-img {
+                width: 100px;
+                padding-bottom: 20px;
+            }
+
+            &-title {
+                border-top: 1px solid black;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: white;
+                border-radius: 0 0 15px 15px;
+                transition: all 0.4s ease-in-out;
+                pointer-events: none;
+
+                &-text {
+                    color: black;
+                    text-transform: capitalize;
+                }
+            }
+        }
+
+    }
 }
 
+@media only screen and (min-width: 996px) {
+    .wrapper {
+        .room {
+            &-wrapper {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            &-form {
+                &-wrapper {
+                    width: 100%;
+                    margin: 10px;
+                }
+
+                &-btn {
+                    position: relative;
+                    padding: 0 50px;
+                    border-radius: 15px;
+                    border: 1px solid rgba(163, 163, 163, 0.2);
+                    background-color: #29b6f6;
+                    transition: all 0.4s ease-in-out;
+                    // -webkit-backdrop-filter: blur(5px) saturate(180%);
+                    // backdrop-filter: blur(5px) saturate(180%);
+
+                    &:hover,
+                    &:focus {
+                        background-color: white;
+                        transition: all 0.4s ease-in-out;
+
+                        .room-form-title {
+                            background-color: #29b6f6;
+                            transition: all 0.4s ease-in-out;
+                        }
+                    }
+                }
+
+                &-img {
+                    width: 150px;
+                    padding-bottom: 20px;
+                }
+
+                &-title {
+                    border-top: 1px solid black;
+                    width: 100%;
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: white;
+                    border-radius: 0 0 15px 15px;
+                    transition: all 0.4s ease-in-out;
+                    pointer-events: none;
+
+                    &-text {
+                        color: black;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// ACTUAL CHATROOM STYLING
 .wrapper {
+    background-color: rgba(0, 0, 0, 0.95);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
     .chat {
+        flex-grow: 1;
+        overflow-y: scroll;
+
         &-map {
             &-wrapper {
                 display: flex;
@@ -47,29 +191,18 @@ body {
             padding-bottom: 20px;
             background-color: rgb(43, 44, 44);
             display: flex;
-            justify-content: space-between;
-            position: sticky;
+            justify-content: space-evenly;
+            position: fixed;
             bottom: 0;
+            width: 100%;
 
             &-input {
-                border-radius: 15px;
-                outline: none;
-                border: none;
+                border-radius: 4px;
                 background-color: rgba(0, 0, 0, 0.95);
                 color: white;
-                margin-left: 5px;
                 caret-color: #29b6f6;
-
-                &:hover,
-                &:focus {
-                    border: 2px solid #29b6f6;
-                }
-
-                padding: {
-                    top: 3px;
-                    bottom: 3px;
-                    left: 15px;
-                }
+                border: none;
+                outline: none;
 
                 &::placeholder {
                     color: rgba(189, 187, 187, 0.7);
@@ -78,9 +211,12 @@ body {
             }
 
             &-btn {
-                margin-right: 10px;
                 background-color: #29b6f6;
                 font-weight: 500;
+                width: 120px;
+                height: 50px;
+                margin-top: auto;
+                margin-bottom: 5px;
 
                 &:hover,
                 &:focus {
@@ -93,105 +229,48 @@ body {
 }
 
 @media only screen and (min-width: 996px) {
-    .chat {
-        width: 60%;
-        margin: 0 auto;
+    .wrapper {
+        padding: 10px 0;
 
-        &-map {
-            &-wrapper {
-                margin-bottom: 25px !important;
-            }
-
-            &-userinput {
-                width: 95% !important;
-                margin-left: 10px !important;
-            }
-        }
-
-        &-form {
-            width: 70% !important;
-            background-color: transparent !important;
-            display: flex;
-            justify-content: space-evenly !important;
+        .chat {
+            width: 60%;
             margin: 0 auto;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0, 0, 0, 0.45) rgba(81, 82, 85, 0.45);
 
-            &-input {
-                border-radius: 10px !important;
-                width: 600px;
-            }
-        }
-    }
-}
-
-
-
-.wrapper {
-    .room {
-        color: white;
-
-        &-title {}
-
-        &-subtitle {}
-
-        &-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        &-form {
-            display: flex;
-
-            &-wrapper {
-                width: 100%;
-                margin: 10px;
+            &::-webkit-scrollbar {
+                border-radius: 10px;
+                width: 7px;
+                background-color: rgba(81, 82, 85, 0.45);
             }
 
-            &-btn {
-                position: relative;
-                padding: 0 50px;
-                border-radius: 15px;
-                border: 1px solid rgba(163, 163, 163, 0.2);
-                background-color: #29b6f6;
-                transition: all 0.4s ease-in-out;
-                // -webkit-backdrop-filter: blur(5px) saturate(180%);
-                // backdrop-filter: blur(5px) saturate(180%);
+            &::-webkit-scrollbar-thumb {
+                background-color: rgba(0, 0, 0, 0.45);
+                border-radius: 10px;
+            }
 
-                &:hover,
-                &:focus {
-                    background-color: white;
-                    transition: all 0.4s ease-in-out;
+            &-map {
+                &-wrapper {
+                    margin-bottom: 25px !important;
+                }
 
-                    .room-form-title {
-                        background-color: #29b6f6;
-                        transition: all 0.4s ease-in-out;
-                    }
+                &-userinput {
+                    width: 95% !important;
+                    margin-left: 10px !important;
                 }
             }
 
-            &-img {
-                width: 150px;
-                padding-bottom: 20px;
-            }
+            &-form {
+                width: 70% !important;
+                background-color: transparent !important;
+                display: flex;
+                justify-content: center !important;
+                gap: 15px;
 
-            &-title {
-                border-top: 1px solid black;
-                width: 100%;
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background-color: white;
-                border-radius: 0 0 15px 15px;
-                transition: all 0.4s ease-in-out;
-                pointer-events: none;
-
-                &-text {
-                    color: black;
-                    text-transform: capitalize;
+                &-input {
+                    width: 600px;
                 }
             }
         }
-
     }
 }
