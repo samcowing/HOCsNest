@@ -12,6 +12,7 @@ django-cors-headers = "*"
 djangorestframework = "*"
 psycopg2-binary = "*"
 djangorestframework-simplejwt = "*"
+django-csp = "*"
 
 [dev-packages]
 
