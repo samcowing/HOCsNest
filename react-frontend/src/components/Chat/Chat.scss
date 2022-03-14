@@ -235,8 +235,8 @@
         padding: 10px 0;
 
         .chat {
-            width: 60%;
-            margin: 0 auto;
+            width: 100%;
+            margin: 20px 0;
             scrollbar-width: thin;
             scrollbar-color: rgba(0, 0, 0, 0.45) rgba(81, 82, 85, 0.45);
 
@@ -252,6 +252,9 @@
             }
 
             &-map {
+                width: 60% !important;
+                margin: 0 auto;
+
                 &-wrapper {
                     margin-bottom: 25px !important;
                 }
@@ -263,7 +266,7 @@
             }
 
             &-form {
-                width: 70% !important;
+                // width: 70% !important;
                 background-color: transparent !important;
                 display: flex;
                 justify-content: center !important;

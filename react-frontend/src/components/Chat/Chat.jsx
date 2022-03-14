@@ -134,7 +134,7 @@ function Chat() {
           )}
 
         </div>
-        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%' }}>Current Room: {room}</p>
+        <p style={{ color: 'white', textTransform: 'capitalize', width: '100%', margin: '0px' }}>Current Room: {room}</p>
       </div>
 
       {/* // CHAT ROOM */}
