@@ -141,3 +141,4 @@ class ChatConsumer(WebsocketConsumer):
             'username': new_msg.user.username,
             'message': new_msg.message,
         }))
+

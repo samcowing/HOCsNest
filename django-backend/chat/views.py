@@ -17,7 +17,7 @@ from .serializers import LogInSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth import get_user_model
 
-user = get_user_model
+#user = get_user_model
 
 
 def index(request):
@@ -44,11 +44,6 @@ class MessageView(viewsets.ModelViewSet):
         return []
 
 
-
-class LogInView(APIView): # new
-    serializer_class = LogInSerializer
-
-
 class LobbyView(APIView):
 
     def get(self, request):
@@ -65,11 +60,4 @@ class RoomView(APIView):
             room = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [request.query_params['room']])
             if len(room) > 0:
                 return Response(room[0].name)
-        return Response('lobby')
-
-
-class UserView(APIView):
-
-    def get(self, request):
-        content = { 'User': request.query_params['username'] }
         return Response('lobby')

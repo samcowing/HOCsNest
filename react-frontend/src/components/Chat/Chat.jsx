@@ -141,7 +141,7 @@ function Chat() {
       <div className='chat'>
         <div className='chat-map'>
           {messages.map(message =>
-            <div className='chat-map-wrapper'>
+            <div className={'chat-map-wrapper ' + (message.username === user.username ? 'active-user' : 'nonactive-user')} >
               <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={user.username} sx={{ bgcolor: lightBlue[400] }} className='chat-map-avatar' />
               <div className='chat-map-userinput'>
                 <h5 className='chat-map-user'>{message.username}</h5>
