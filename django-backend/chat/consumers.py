@@ -7,10 +7,12 @@ from django.contrib.auth import get_user_model
 
 from channels.generic.websocket import WebsocketConsumer
 from channels.auth import login
+from channels.db import database_sync_to_async
 
 from .models import Lounge
 from .models import Room
 from .models import Message
+
 
 class ChatConsumer(WebsocketConsumer):
 
@@ -33,10 +35,14 @@ class ChatConsumer(WebsocketConsumer):
         return new_msg
 
     def connect(self):
+        print("Authentication successful")
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
         self.user = self.scope['user']
         print(f'user: { self.user }')
+
+        async_to_sync(login)(self.scope, self.user)
+        database_sync_to_async(self.scope['session'].save)()
 
         all_lounge_arr = Lounge.objects.raw('SELECT * from chat_lounge')
         all_room_arr = Room.objects.raw('SELECT * from chat_room')
@@ -83,8 +89,8 @@ class ChatConsumer(WebsocketConsumer):
         message = text_data_json['message']
         username = text_data_json['username']
 
-        async_to_sync(login)(self.scope, user)
-        self.scope['session'].save()
+        async_to_sync(login)(self.scope, self.user)
+        database_sync_to_async(self.scope['session'].save)()
 
         # Send message to room group
         async_to_sync(self.channel_layer.group_send)(
