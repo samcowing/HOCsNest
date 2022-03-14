@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render
 
 from rest_framework import viewsets
@@ -12,6 +13,11 @@ from .serializers import MessageSerializer
 from .serializers import UserSerializer
 from .models import Message
 from .models import Room
+from .serializers import LogInSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+from django.contrib.auth import get_user_model
+
+user = get_user_model
 
 
 def index(request):
@@ -39,13 +45,8 @@ class MessageView(viewsets.ModelViewSet):
 
 
 
-class HelloView(APIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request):
-        content = { 'message': 'Hello World!' }
-        return Response(content)
-
+class LogInView(APIView): # new
+    serializer_class = LogInSerializer
 
 
 class LobbyView(APIView):
@@ -64,4 +65,11 @@ class RoomView(APIView):
             room = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [request.query_params['room']])
             if len(room) > 0:
                 return Response(room[0].name)
+        return Response('lobby')
+
+
+class UserView(APIView):
+
+    def get(self, request):
+        content = { 'User': request.query_params['username'] }
         return Response('lobby')

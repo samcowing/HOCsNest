@@ -1,7 +1,9 @@
-.chat {
+body {
     background-color: rgba(0, 0, 0, 0.95);
+}
 
-    .room {
+.wrapper {
+    .chat {
         &-map {
             &-wrapper {
                 display: flex;
@@ -91,7 +93,7 @@
 }
 
 @media only screen and (min-width: 996px) {
-    .room {
+    .chat {
         width: 60%;
         margin: 0 auto;
 
@@ -118,5 +120,78 @@
                 width: 600px;
             }
         }
+    }
+}
+
+
+
+.wrapper {
+    .room {
+        color: white;
+
+        &-title {}
+
+        &-subtitle {}
+
+        &-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        &-form {
+            display: flex;
+
+            &-wrapper {
+                width: 100%;
+                margin: 10px;
+            }
+
+            &-btn {
+                position: relative;
+                padding: 0 50px;
+                border-radius: 15px;
+                border: 1px solid rgba(163, 163, 163, 0.2);
+                background-color: #29b6f6;
+                transition: all 0.4s ease-in-out;
+                // -webkit-backdrop-filter: blur(5px) saturate(180%);
+                // backdrop-filter: blur(5px) saturate(180%);
+
+                &:hover,
+                &:focus {
+                    background-color: white;
+                    transition: all 0.4s ease-in-out;
+
+                    .room-form-title {
+                        background-color: #29b6f6;
+                        transition: all 0.4s ease-in-out;
+                    }
+                }
+            }
+
+            &-img {
+                width: 150px;
+                padding-bottom: 20px;
+            }
+
+            &-title {
+                border-top: 1px solid black;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-color: white;
+                border-radius: 0 0 15px 15px;
+                transition: all 0.4s ease-in-out;
+                pointer-events: none;
+
+                &-text {
+                    color: black;
+                    text-transform: capitalize;
+                }
+            }
+        }
+
     }
 }

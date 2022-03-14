@@ -9,6 +9,7 @@ const Logout = () => {
 		const response = axiosConnection.post('user/logout/blacklist/', {
 			refresh_token: localStorage.getItem('refresh_token'),
 		})
+        console.log(response)
 		localStorage.removeItem('access_token')
 		localStorage.removeItem('refresh_token')
 		axiosConnection.defaults.headers['Authorization'] = null

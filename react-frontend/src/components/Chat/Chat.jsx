@@ -1,8 +1,8 @@
 import './Chat.scss'
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import Avatar from '@mui/material/Avatar'
-import { indigo, lightBlue } from '@mui/material/colors'
-import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
+import { lightBlue } from '@mui/material/colors'
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Chat() {
@@ -11,14 +11,16 @@ function Chat() {
   const [messages, setMessages] = useState([])
   const [inputValue, setInputValue] = useState('')
   const [username, setUsername] = useState('')
-  const [room, setRoom] = useState(null)
+  const [room, setRoom] = useState('home')
   const [client, setClient] = useState({})
+
+  const roomsArray = ['home', 'lounge', 'games']
 
   const logIn = async (e) => {
     if (isLoggedIn === false) {
       e.preventDefault()
       setIsLoggedIn(true)
-      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/')
+      const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + window.localStorage.getItem)
       setClient(new_client)
     }
   }
@@ -37,6 +39,7 @@ function Chat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
+      console.log()
       const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
       const prevMessages = res.data.map((element) => {
         return {
@@ -61,45 +64,57 @@ function Chat() {
 
 
   return (
-    <div className="chat">
-      <h1 style={{ marginBottom: '30px', borderBottom: '1px solid black' }}>Home</h1>
+    <div className="wrapper">
       {isLoggedIn ?
         // CHAT ROOM
-        <div className='room'>
-          {/* <p>Room Name: {room}</p> */}
-          <div className='room-map'>
+        <div className='chat'>
+          <p style={{ color: 'white' }}>Room Name: {room}</p>
+          <div className='chat-map'>
             {messages.map(message =>
-              <div className='room-map-wrapper'>
-                <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={username} sx={{ bgcolor: lightBlue[400] }} className='room-map-avatar' />
-                <div className='room-map-userinput'>
-                  <h5 className='room-map-user'>{message.username}</h5>
-                  <p className='room-map-message'>{message.message}</p>
+              <div className='chat-map-wrapper'>
+                <Avatar src='https://i.imgur.com/W7mI5kZ.png' alt={username} sx={{ bgcolor: lightBlue[400] }} className='chat-map-avatar' />
+                <div className='chat-map-userinput'>
+                  <h5 className='chat-map-user'>{message.username}</h5>
+                  <p className='chat-map-message'>{message.message}</p>
                 </div>
               </div>
             )}
           </div>
-          <form className='room-form' noValidate onSubmit={onClick}>
-            <input className='room-form-input' id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
+          <form className='chat-form' noValidate onSubmit={onClick}>
+            <input className='chat-form-input' id="text-input" placeholder='Make a comment' value={inputValue} onChange={e => {
               setInputValue(e.target.value)
 
             }} />
-            <button className='btn room-form-btn' type='submit'>Send Chat</button>
+            <button className='btn chat-form-btn' type='submit'>Send Chat</button>
           </form>
         </div>
 
         // TEMP CHAT-LOGIN SCREEN
         :
-        <div className='App-login'>
-          <h1>HOCs Nest</h1>
-          <form noValidate onSubmit={logIn}>
-            <input id='room-name' placeholder='Chatroom Name' name='chatroom-name' value={room} onChange={e => {
-              setRoom(e.target.value)
-            }} />
-            <input id='username' placeholder='Username' name='username' value={username} onChange={e => {
-              setUsername(e.target.value)
-            }} />
-            <button type='submit'>Start Chatting</button>
-          </form>
+        <div className='room'>
+
+          <h1 className='room-title'>HOCs Nest</h1>
+          <h4 className='room-subtitle'>Click A Channel To Join:</h4>
+
+          <div className='room-wrapper'>
+            {roomsArray.map(room =>
+
+              <form className='room-form' noValidate onSubmit={logIn}>
+                <div className='room-form-wrapper'>
+                  <button type="submit" className='btn room-form-btn'>
+                    <input type="image" id="room-name" alt="room-icon" className='room-form-img' value={room} src="https://i.imgur.com/W7mI5kZ.png" onClick={e => {
+                      setRoom(e.target.value)
+                    }} />
+                    <div className='room-form-title'>
+                      <h5 className='room-form-title-text'>{room}</h5>
+                    </div>
+                  </button>
+                </div>
+              </form>
+
+            )}
+          </div>
+
         </div>
       }
     </div>

@@ -10,7 +10,7 @@ const axiosConnection = axios.create({
             ? 'JWT ' + localStorage.getItem('access_token')
             : null,
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        ccept: 'application/json',
     },
 })
 
@@ -48,7 +48,6 @@ axiosConnection.interceptors.response.use(
 			if (refreshToken) {
 				const tokenParts = JSON.parse(atob(refreshToken.split('.')[1]));
 
-				// exp date in token is expressed in seconds, while now() returns milliseconds:
 				const now = Math.ceil(Date.now() / 1000);
 				console.log(tokenParts.exp);
 
@@ -78,8 +77,6 @@ axiosConnection.interceptors.response.use(
 				window.location.href = '/login/';
 			}
 		}
-
-		// specific error handling done elsewhere
 		return Promise.reject(error);
 	}
 );
