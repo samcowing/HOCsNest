@@ -23,9 +23,9 @@ export const lightTheme = {
     themeBtnHover: '#93CDA5',
 
     // LOGIN-SIGNUP
-    loginBody: 'linear-gradient(to right, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+    loginBody: 'linear-gradient(to left, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
     loginBodyMobile: 'linear-gradient(to top, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
-    signupBody: 'linear-gradient(to left, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+    signupBody: 'linear-gradient(to right, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
     signupBodyMobile: 'linear-gradient(to bottom, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
 
     loginBtn: '#93CDA5',
@@ -38,6 +38,7 @@ export const lightTheme = {
     signupPrimary: '#BEFBFF',
     signupSecondary: '#93CDA5',
 
+    loginPrimaryText: 'rgba(0, 0, 0, 0.87)',
     loginSecondaryText: '#009F59',
     signupSecondaryText: '#BEFBFF',
 
@@ -71,24 +72,25 @@ export const darkTheme = {
     themeBtnHover: '#9575cd',
 
     // LOGIN-SIGNUP
-    loginBody: '',
-    loginBodyMobile: '',
-    signupBody: '',
-    signupBodyMobile: '',
+    loginBody: 'linear-gradient(to right, #11162c, #161a32, #1c1e39, #222140, #292546, #2e284c, #332c52, #392f58, #3e3360, #443768, #493c70, #4f4078)',
+    loginBodyMobile: 'linear-gradient(to top, #11162c, #161a32, #1c1e39, #222140, #292546, #2e284c, #332c52, #392f58, #3e3360, #443768, #493c70, #4f4078)',
+    signupBody: 'linear-gradient(to left, #11162c, #161a32, #1c1e39, #222140, #292546, #2e284c, #332c52, #392f58, #3e3360, #443768, #493c70, #4f4078)',
+    signupBodyMobile: 'linear-gradient(to bottom, #11162c, #161a32, #1c1e39, #222140, #292546, #2e284c, #332c52, #392f58, #3e3360, #443768, #493c70, #4f4078)',
 
-    loginBtn: '',
-    loginBtnHover: '',
-    signupBtn: '',
-    signupBtnHover: '',
+    loginBtn: '#9575cd',
+    loginBtnHover: '#fff',
+    signupBtn: '#588eeb',
+    signupBtnHover: '#fff',
 
-    loginPrimary: '',
-    loginSecondary: '',
-    signupPrimary: '',
-    signupSecondary: '',
+    loginPrimary: '#9575cd',
+    loginSecondary: '#588eeb',
+    signupPrimary: '#588eeb',
+    signupSecondary: '#9575cd',
 
-    loginSecondaryText: '',
-    signupSecondaryText: '',
+    loginPrimaryText: 'rgba(0, 0, 0, 0.87)',
+    loginSecondaryText: '#7e57c2',
+    signupSecondaryText: '#588eeb',
 
-    loginInputBorder: '',
-    signupInputBorder: '',
+    loginInputBorder: '#7e57c2',
+    signupInputBorder: '#588eeb',
 }

@@ -82,9 +82,10 @@ body {
 
 .user-container {
     background: ${({ theme }) => theme.loginBody};
+    color: ${({ theme }) => theme.loginPrimaryText};
 
     a {
-        color: ${({ theme }) => theme.primaryText};
+        color: ${({ theme }) => theme.loginPrimaryText};
     }
 
     .login {
@@ -126,9 +127,10 @@ body {
 
 .user-container-signup {
     background: ${({ theme }) => theme.signupBody};
+    color: ${({ theme }) => theme.loginPrimaryText};
 
     a {
-        color: ${({ theme }) => theme.primaryText};
+        color: ${({ theme }) => theme.loginPrimaryText};
     }
 
     .signup {
