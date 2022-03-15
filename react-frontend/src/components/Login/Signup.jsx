@@ -26,7 +26,6 @@ const Signup = () => {
 
     const handleSignup = (e) => {
         e.preventDefault();
-        console.log(formData);
 
         axiosConnection
             .post(`user/register/`, {
@@ -36,8 +35,6 @@ const Signup = () => {
             })
             .then((res) => {
                 navigate('/login');
-                console.log(res);
-                console.log(res.data);
             });
     }
 

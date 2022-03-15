@@ -38,9 +38,6 @@ class ChatConsumer(WebsocketConsumer):
         print("Authentication successful")
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        print(f'user: { self.scope["user"] }')
-        print(f'Anonymous: { self.scope["user"].is_anonymous }')
-        print(f'Authenticated: { self.scope["user"].is_authenticated }')
 
         if self.scope['user'].is_authenticated:
             async_to_sync(login)(self.scope, self.scope['user'])
@@ -86,7 +83,6 @@ class ChatConsumer(WebsocketConsumer):
                     'email': self.scope['user'].email,
                 }
             )
-            print("CONNECTION ACCEPTED")
         else:
             print("\nUnauthorized\n")
 
