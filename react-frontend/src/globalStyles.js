@@ -7,14 +7,6 @@ body {
     color: ${({ theme }) => theme.primaryText};
 }
 
-.toggle-button {
-    color: ${({ theme }) => theme.primaryText};
-
-    &:hover {
-        color: ${({ theme }) => theme.primaryText};
-    }
-}
-
 .room {
     &-form {
 
@@ -77,6 +69,7 @@ body {
     }
 }
 
+
 .toggle-btn {
     svg {
         color: ${({ theme }) => theme.themeBtn};
@@ -85,5 +78,95 @@ body {
         }
     }
 }
+
+
+.user-container {
+    background: ${({ theme }) => theme.loginBody};
+
+    a {
+        color: ${({ theme }) => theme.primaryText};
+    }
+
+    .login {
+        &-header {
+            background: ${({ theme }) => theme.loginPrimary};
+        }
+
+        &-form {
+            background: ${({ theme }) => theme.loginSecondary};
+
+            input {
+                &:focus {
+                    border: 2px solid;
+                    border-color: ${({ theme }) => theme.loginInputBorder};
+                }
+            }
+
+            &-btn {
+                background: ${({ theme }) => theme.loginBtn};
+                &:hover {
+                    background: ${({ theme }) => theme.loginBtnHover};
+                }
+            }
+
+            &-create {
+                span {
+                    color: ${({ theme }) => theme.loginSecondaryText};
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 425px) {
+    .user-container {
+        background: ${({ theme }) => theme.loginBodyMobile};
+    }
+}
+
+.user-container-signup {
+    background: ${({ theme }) => theme.signupBody};
+
+    a {
+        color: ${({ theme }) => theme.primaryText};
+    }
+
+    .signup {
+        &-header {
+            background: ${({ theme }) => theme.signupPrimary};
+        }
+
+        &-form {
+            background: ${({ theme }) => theme.signupSecondary};
+
+            input {
+                &:focus {
+                    border: 2px solid;
+                    border-color: ${({ theme }) => theme.signupInputBorder};
+                }
+            }
+
+            &-btn {
+                background: ${({ theme }) => theme.signupBtn};
+                &:hover {
+                    background: ${({ theme }) => theme.signupBtnHover};
+                }
+            }
+
+            &-login {
+                span {
+                    color: ${({ theme }) => theme.signupSecondaryText};
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 425px) {
+    .user-container-signup {
+        background: ${({ theme }) => theme.signupBodyMobile};
+    }
+}
+
 
 `

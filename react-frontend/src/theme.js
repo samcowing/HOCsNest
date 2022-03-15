@@ -1,4 +1,5 @@
 export const lightTheme = {
+    // CHAT
     body: '#fff',
     primaryText: 'rgba(0, 0, 0, 0.87)',
     secondaryText: '#00C8E7',
@@ -20,9 +21,32 @@ export const lightTheme = {
 
     themeBtn: '#00C8E7',
     themeBtnHover: '#93CDA5',
+
+    // LOGIN-SIGNUP
+    loginBody: 'linear-gradient(to right, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+    loginBodyMobile: 'linear-gradient(to top, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+    signupBody: 'linear-gradient(to left, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+    signupBodyMobile: 'linear-gradient(to bottom, #233329, #25392c, #273f2e, #294530, #2b4b32, #355b42, #406b52, #4a7b63, #629a88, #7dbaaf)',
+
+    loginBtn: '#93CDA5',
+    loginBtnHover: '#fff',
+    signupBtn: '#BEFBFF',
+    signupBtnHover: '#fff',
+
+    loginPrimary: '#93CDA5',
+    loginSecondary: '#BEFBFF',
+    signupPrimary: '#BEFBFF',
+    signupSecondary: '#93CDA5',
+
+    loginSecondaryText: '#009F59',
+    signupSecondaryText: '#BEFBFF',
+
+    loginInputBorder: '#93CDA5',
+    signupInputBorder: '#BEFBFF',
 }
 
 export const darkTheme = {
+    // CHAT
     body: '#121212',
 
     primaryText: '#fff',
@@ -45,4 +69,26 @@ export const darkTheme = {
 
     themeBtn: '#588eeb',
     themeBtnHover: '#9575cd',
+
+    // LOGIN-SIGNUP
+    loginBody: '',
+    loginBodyMobile: '',
+    signupBody: '',
+    signupBodyMobile: '',
+
+    loginBtn: '',
+    loginBtnHover: '',
+    signupBtn: '',
+    signupBtnHover: '',
+
+    loginPrimary: '',
+    loginSecondary: '',
+    signupPrimary: '',
+    signupSecondary: '',
+
+    loginSecondaryText: '',
+    signupSecondaryText: '',
+
+    loginInputBorder: '',
+    signupInputBorder: '',
 }
