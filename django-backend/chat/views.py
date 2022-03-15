@@ -1,11 +1,14 @@
 from urllib import request
 from django.shortcuts import render
+from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Q
 
 from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework import pagination, filters
 
 from django.contrib.auth.models import User
 
@@ -32,12 +35,14 @@ def room(request, room_name):
 
 class MessageView(viewsets.ModelViewSet):
     serializer_class = MessageSerializer
+    pagination.PageNumberPagination.page_size = 200;
 
     def get_queryset(self):
         r = self.request.query_params['room']
 
         r_id = Room.objects.raw('SELECT * from chat_room WHERE name = %s', [r])[0].id
-        return Message.objects.filter(room_id=r_id)
+        queryset = Message.objects.filter(room_id=r_id).order_by('-id')
+        return queryset
 
     @classmethod
     def get_extra_actions(cls):

@@ -24,7 +24,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'password')
 
 
-class LogInSerializer(TokenObtainPairSerializer): 
+class LogInSerializer(TokenObtainPairSerializer):
     def get_token(cls, user):
         token = super().get_token(user)
         user_data = UserSerializer(user).data

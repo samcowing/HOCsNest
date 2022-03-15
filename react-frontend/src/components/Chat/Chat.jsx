@@ -30,7 +30,6 @@ function Chat() {
     const token = window.localStorage.getItem('refresh_token')
     const new_client = new W3CWebSocket('ws://localhost:8000/ws/chat/' + room + '/' + '?token=' + token)
     if (token === null) {
-      console.log("NULL TOKEN")
       navigate('/login')
     }
     setClient(new_client)
@@ -77,15 +76,14 @@ function Chat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
-      const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
-      const prevMessages = res.data.map((element) => {
+      const res = await axios.get("http://localhost:8000/api/messages?room=" + room + '&page=1')
+      const prevMessages = res.data.results.map((element) => {
         return {
           message: element.message,
           username: element.user.username
         }
       })
-      setMessages(prevMessages)
-      console.log(prevMessages)
+      setMessages(prevMessages.reverse())
     }
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data)
@@ -105,7 +103,6 @@ function Chat() {
   useEffect(() => {
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data)
-      console.log('got reply!', dataFromServer)
       if (dataFromServer) {
         if (dataFromServer.type === 'message') {
           setMessages([...messages, { message: dataFromServer.message, username: dataFromServer.username }])

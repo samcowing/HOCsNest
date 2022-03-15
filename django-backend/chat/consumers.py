@@ -38,7 +38,6 @@ class ChatConsumer(WebsocketConsumer):
         print("Authentication successful")
         self.room_name = self.scope['url_route']['kwargs']['room_name']
         self.room_group_name = 'chat_%s' % self.room_name
-        print(f'user: { self.scope["user"] }')
 
         if self.scope['user'].is_authenticated:
             async_to_sync(login)(self.scope, self.scope['user'])
