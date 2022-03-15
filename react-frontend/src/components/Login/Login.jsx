@@ -25,7 +25,6 @@ const Login = () => {
 
     const logIn = (e) => {
         e.preventDefault();
-        console.log(formData);
 
         axiosConnection
             .post(`token/`, {

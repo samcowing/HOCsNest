@@ -61,11 +61,14 @@ function Chat() {
   function onEnter(e) {
     if (e.keyCode == 13 && !e.shiftKey) {
       e.preventDefault()
-      client.send(JSON.stringify({
-        type: 'message',
-        message: inputValue,
-        username: user.username
-      }))
+      if (inputValue !== '')
+      {
+        client.send(JSON.stringify({
+          type: 'message',
+          message: inputValue,
+          username: user.username
+        }))
+      }
       e.target.value = inputValue
       setInputValue('')
     }
