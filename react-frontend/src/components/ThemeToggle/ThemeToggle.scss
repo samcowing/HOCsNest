@@ -1,0 +1,22 @@
+.toggle-btn {
+    position: fixed;
+    right: 20px;
+    z-index: 1;
+    transition: all 0.4s ease-in-out;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &:hover {
+        transition: all 0.4s ease-in-out;
+    }
+
+    svg {
+        transition: all 0.4s ease-in-out;
+
+        &:hover {
+            transition: all 0.4s ease-in-out;
+        }
+    }
+}
