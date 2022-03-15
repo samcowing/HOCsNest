@@ -77,15 +77,15 @@ function Chat() {
   useEffect(() => {
     client.onopen = async () => {
       console.log('WebSocket Client Connected')
-      const res = await axios.get("http://localhost:8000/api/messages?room=" + room)
-      const prevMessages = res.data.map((element) => {
+      const res = await axios.get("http://localhost:8000/api/messages?room=" + room + '&page=1')
+      console.log(res.data)
+      const prevMessages = res.data.results.map((element) => {
         return {
           message: element.message,
           username: element.user.username
         }
       })
-      setMessages(prevMessages)
-      console.log(prevMessages)
+      setMessages(prevMessages.reverse())
     }
     client.onmessage = (message) => {
       const dataFromServer = JSON.parse(message.data)
