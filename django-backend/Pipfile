@@ -13,6 +13,7 @@ djangorestframework = "*"
 psycopg2-binary = "*"
 djangorestframework-simplejwt = "*"
 django-csp = "*"
+dj-database-url = "*"
 
 [dev-packages]
 

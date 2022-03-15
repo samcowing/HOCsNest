@@ -1,8 +1,6 @@
 // CHANNEL ROOM SELECTOR STYLE
 .wrapper {
     .room {
-        color: white;
-
         &-title {}
 
         &-subtitle {}
@@ -10,6 +8,8 @@
         &-wrapper {
             display: flex;
             overflow-x: auto;
+            background-color: rgba(81, 82, 85, 0.04);
+            padding: 5px 0;
         }
 
         &-form {
@@ -25,23 +25,21 @@
                 padding: 0 30px;
                 border-radius: 15px;
                 border: 1px solid rgba(163, 163, 163, 0.2);
-                background-color: #29b6f6;
                 transition: all 0.4s ease-in-out;
+                box-shadow: none;
 
                 &:hover,
                 &:focus {
-                    background-color: white;
                     transition: all 0.4s ease-in-out;
+                    box-shadow: none;
 
                     .room-form-title {
-                        background-color: #29b6f6;
                         transition: all 0.4s ease-in-out;
                     }
                 }
             }
 
             .active-btn {
-                background-color: white !important;
                 transform: scale(1.08);
             }
 
@@ -57,7 +55,6 @@
                 bottom: 0;
                 left: 0;
                 right: 0;
-                background-color: white;
                 border-radius: 0 0 15px 15px;
                 transition: all 0.4s ease-in-out;
                 pointer-events: none;
@@ -70,9 +67,7 @@
                 }
             }
 
-            .active-title {
-                background-color: #29b6f6 !important;
-            }
+            .active-title {}
         }
 
     }
@@ -97,19 +92,7 @@
                     padding: 0 50px;
                     border-radius: 15px;
                     border: 1px solid rgba(163, 163, 163, 0.2);
-                    background-color: #29b6f6;
                     transition: all 0.4s ease-in-out;
-
-                    &:hover,
-                    &:focus {
-                        background-color: white;
-                        transition: all 0.4s ease-in-out;
-
-                        .room-form-title {
-                            background-color: #29b6f6;
-                            transition: all 0.4s ease-in-out;
-                        }
-                    }
                 }
 
                 &-img {
@@ -124,7 +107,6 @@
                     bottom: 0;
                     left: 0;
                     right: 0;
-                    background-color: white;
                     border-radius: 0 0 15px 15px;
                     transition: all 0.4s ease-in-out;
                     pointer-events: none;
@@ -139,10 +121,8 @@
     }
 }
 
-
 // ACTUAL CHATROOM STYLING
 .wrapper {
-    background-color: rgba(0, 0, 0, 0.95);
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -161,6 +141,12 @@
                 margin-bottom: 15px;
             }
 
+            .active-user {
+                .chat-map-avatar {
+                    order: 2;
+                }
+            }
+
             &-avatar {
                 margin-top: 5px;
             }
@@ -171,7 +157,7 @@
                 margin: 0 auto;
                 border-radius: 15px;
                 border: 1px solid rgba(163, 163, 163, 0.2);
-                background-color: rgba(81, 82, 85, 0.45);
+                background-color: rgba(81, 82, 85, 0.25);
                 -webkit-backdrop-filter: blur(5px) saturate(180%);
                 backdrop-filter: blur(5px) saturate(180%);
             }
@@ -179,13 +165,11 @@
             &-user {
                 text-align: left;
                 margin: 0;
-                color: #29b6f6;
             }
 
             &-message {
                 text-align: left;
                 margin: 0;
-                color: white;
             }
 
             &-ref {
@@ -205,25 +189,24 @@
 
             &-input {
                 border-radius: 4px;
-                background-color: rgba(0, 0, 0, 0.95);
-                color: white;
-                caret-color: #29b6f6;
                 border: none;
                 outline: none;
             }
 
             &-btn {
-                background-color: #29b6f6;
-                font-weight: 500;
-                width: 120px;
-                height: 50px;
                 margin-top: auto;
-                margin-bottom: 5px;
 
-                &:hover,
                 &:focus {
-                    background-color: white;
-                    color: black;
+                    box-shadow: none;
+                }
+
+                svg {
+                    border-radius: 50%;
+                    transition: all 0.4s ease-in-out;
+
+                    &:hover {
+                        transition: all 0.4s ease-in-out;
+                    }
                 }
             }
         }
@@ -232,7 +215,6 @@
 
 @media only screen and (min-width: 996px) {
     .wrapper {
-        padding: 10px 0;
 
         .chat {
             width: 100%;
@@ -261,12 +243,10 @@
 
                 &-userinput {
                     width: 95% !important;
-                    margin-left: 10px !important;
                 }
             }
 
             &-form {
-                // width: 70% !important;
                 background-color: transparent !important;
                 display: flex;
                 justify-content: center !important;
