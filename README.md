@@ -8,7 +8,7 @@ https://hocsnest.herokuapp.com/login
 * Sam Cowing (scrum lead)
 
 ### Your project idea 
-> This app is a social platform based around people coming together to hangout and play games online. While apps like this exit today, very few have proved a huge success and dominated the market. Our goal is with this social platform is to make it user friendly and simple, so that it's easy to hangout and play in-app games, or external games, with friends online.
+> This app is a social platform based around people coming together to hangout and play games online. While apps like this exit today, very few have proved a huge success and dominated the market. Our goal is with this social platform is to make it user friendly and simple, so that it's easy to hangout and play in-app games, or external games, with friends online. Since that was a little ambiguous for a week.. this project's goal is currently step 1, being able to create you account and join live chatrooms.
 
 ### Sneak peak
 ![Wireframe](https://i.imgur.com/vwUozoB.png)
