@@ -1,6 +1,8 @@
 # HOC's Nest
 
-### Your group members and scrum leader (if applicable) 
+https://hocsnest.herokuapp.com/login
+
+### Your group members
 * David Oliveros (backend lead)
 * Josh Hovis (frontend lead)
 * Sam Cowing (scrum lead)
@@ -8,10 +10,14 @@
 ### Your project idea 
 > This app is a social platform based around people coming together to hangout and play games online. While apps like this exit today, very few have proved a huge success and dominated the market. Our goal is with this social platform is to make it user friendly and simple, so that it's easy to hangout and play in-app games, or external games, with friends online.
 
+### Sneak peak
+![Wireframe](https://i.imgur.com/vwUozoB.png)
+
 ### Your tech stack (frontend, backend, database)
 - React
 - Django
 - PostgreSQL
+- Redis
 
 ### List of backend models and their properties
 - Group model
@@ -38,6 +44,6 @@ As a user I want to be able to take action at my turn during a game
 
 ### Stretch Goals
 * Direct chats
-* Multiple games
+* In app games
 * Voice Chat
 * Friends List
