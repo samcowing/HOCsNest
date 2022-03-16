@@ -173,7 +173,7 @@
             }
 
             &-ref {
-                height: 60px;
+                height: 90px;
             }
         }
 
@@ -182,7 +182,7 @@
             padding-bottom: 20px;
             background-color: rgb(43, 44, 44);
             display: flex;
-            justify-content: space-evenly;
+            justify-content: center;
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -191,6 +191,7 @@
                 border-radius: 4px;
                 border: none;
                 outline: none;
+                width: 275px;
             }
 
             &-btn {
@@ -244,13 +245,16 @@
                 &-userinput {
                     width: 95% !important;
                 }
+
+                &-ref {
+                    height: 60px;
+                }
             }
 
             &-form {
                 background-color: transparent !important;
                 display: flex;
-                justify-content: center !important;
-                gap: 15px;
+                gap: 5px;
 
                 &-input {
                     width: 600px;

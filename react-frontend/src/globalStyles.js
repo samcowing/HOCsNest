@@ -170,5 +170,12 @@ body {
     }
 }
 
+.logout-btn {
+    background: ${({ theme }) => theme.logoutBtn};
+
+    &:hover, &:focus {
+        background: ${({ theme }) => theme.logoutBtnHover};
+    }
+}
 
 `

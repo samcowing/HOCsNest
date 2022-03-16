@@ -4,14 +4,13 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Chat from './components/Chat/Chat';
 import Login from './components/Login/Login';
 import Signup from './components/Login/Signup';
-import Logout from './components/Login/Logout';
+// import Logout from './components/Login/Logout';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 
 import { ThemeProvider } from 'styled-components'
 import { useDarkMode } from './useDarkMode';
 import { lightTheme, darkTheme } from './theme'
 import { GlobalStyles } from './globalStyles'
-
 
 function App() {
 
@@ -22,13 +21,14 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      {/* <Logout /> */}
 
       <div className="App" >
         <div>
           <Routes>
-            <Route path='/signup' element={< Signup />} />
-            <Route path='/login' element={< Login />} />
-            <Route path="/logout" element={< Logout />} />
+            <Route path='/' element={<Navigate to='/chat' />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/chat' element={<Chat theme={theme} />} />
           </Routes>
         </div>

@@ -19,7 +19,7 @@ export const lightTheme = {
     sendBtn: '#00B0AE',
     sendBtnHover: '#D3FADE',
 
-    themeBtn: '#00C8E7',
+    themeBtn: '#4ecee2',
     themeBtnHover: '#93CDA5',
 
     // LOGIN-SIGNUP
@@ -44,6 +44,9 @@ export const lightTheme = {
 
     loginInputBorder: '#93CDA5',
     signupInputBorder: '#BEFBFF',
+
+    logoutBtn: '#4ecee2',
+    logoutBtnHover: '#93CDA5',
 }
 
 export const darkTheme = {
@@ -93,4 +96,7 @@ export const darkTheme = {
 
     loginInputBorder: '#7e57c2',
     signupInputBorder: '#588eeb',
+
+    logoutBtn: '#588eeb',
+    logoutBtnHover: '#9575cd',
 }
