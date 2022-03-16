@@ -5,7 +5,7 @@ import axiosConnection from './authAPI';
 const Logout = () => {
 	const navigate = useNavigate()
 
-	useEffect(() => {
+	function logoutClick() {
 		const response = axiosConnection.post('user/logout/blacklist/', {
 			refresh_token: localStorage.getItem('refresh_token'),
 		})
@@ -13,8 +13,13 @@ const Logout = () => {
 		localStorage.removeItem('refresh_token')
 		axiosConnection.defaults.headers['Authorization'] = null
 		navigate('/login');
-	})
-	return <div>Logout</div>
+	}
+
+	return (
+		<div>
+			<button className='btn logout-btn' onClick={logoutClick}> Logout </button>
+		</div>
+	)
 }
 
 export default Logout

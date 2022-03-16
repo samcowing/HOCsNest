@@ -12,7 +12,6 @@ import { useDarkMode } from './useDarkMode';
 import { lightTheme, darkTheme } from './theme'
 import { GlobalStyles } from './globalStyles'
 
-
 function App() {
 
   const [theme, toggleTheme] = useDarkMode()
@@ -22,13 +21,14 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
+      <Logout />
 
       <div className="App" >
         <div>
           <Routes>
-            <Route path='/signup' element={< Signup />} />
-            <Route path='/login' element={< Login />} />
-            <Route path="/logout" element={< Logout />} />
+            <Route path='/' element={<Navigate to='/chat' />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/login' element={<Login />} />
             <Route path='/chat' element={<Chat theme={theme} />} />
           </Routes>
         </div>

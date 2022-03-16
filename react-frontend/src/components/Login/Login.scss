@@ -1,3 +1,4 @@
+// LOGIN STYLING 
 .user-container {
     width: 100vw;
     height: 100vh;
@@ -5,7 +6,6 @@
     align-items: center;
 }
 
-// LOGIN STYLING 
 .login {
     &-container {
         width: 50% !important;
@@ -269,3 +269,24 @@
         }
     }
 }
+
+
+// LOGOUT
+// @media only screen and (max-width: 425px) {
+.logout-btn {
+    position: fixed;
+    left: 10px;
+    top: 6px;
+    z-index: 1;
+    transition: all 0.4s ease-in-out;
+
+    &:focus {
+        box-shadow: none;
+    }
+
+    &:hover {
+        transition: all 0.4s ease-in-out;
+    }
+}
+
+// }
