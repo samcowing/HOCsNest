@@ -6,6 +6,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
+import Logout from '../Login/Logout';
 
 const LightTextField = styled(TextField)({
   '& .MuiOutlinedInput-root': {
@@ -135,6 +136,7 @@ function Chat({ theme }) {
 
   return (
     <div className="wrapper" >
+      <Logout />
       <div className='room'>
         <h1 className='room-title'>HOCs Nest</h1>
         <h4 className='room-subtitle'>Rooms Available To Join:</h4>

@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import Chat from './components/Chat/Chat';
 import Login from './components/Login/Login';
 import Signup from './components/Login/Signup';
-import Logout from './components/Login/Logout';
+// import Logout from './components/Login/Logout';
 import ThemeToggle from './components/ThemeToggle/ThemeToggle';
 
 import { ThemeProvider } from 'styled-components'
@@ -21,7 +21,7 @@ function App() {
     <ThemeProvider theme={themeMode}>
       <GlobalStyles />
       <ThemeToggle theme={theme} toggleTheme={toggleTheme} />
-      <Logout />
+      {/* <Logout /> */}
 
       <div className="App" >
         <div>
